@@ -19,4 +19,9 @@ public class UserRepositoryTest {
         Users actualUsers = userRepository.findUsersLivingIn("London");
         assertThat(actualUsers.getUsers()).contains(MECHELLE_BOAM);
     }
+
+    @Test
+    public void findUsersCurrentlyNearLondon() {
+        userRepository.findUsersCurrentlyNear("London", 51.507222, -0.1275, 60);
+    }
 }

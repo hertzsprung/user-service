@@ -12,7 +12,7 @@ import uk.co.datumedge.bpdts.service.UserLocationService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
-import static uk.co.datumedge.bpdts.test.TestUsers.TEAGAN_PARSONS;
+import static uk.co.datumedge.bpdts.test.TestUsers.TERRY_STOWGILL;
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 public class UserControllerTest {
@@ -27,7 +27,7 @@ public class UserControllerTest {
 
     @Test
     public void getUsersLivingOrWithin10MilesOfCoventry() {
-        Users expectedUsers = new Users(TEAGAN_PARSONS);
+        Users expectedUsers = new Users(TERRY_STOWGILL);
         when(service.findUsersLivingOrNear("Coventry", 10)).thenReturn(expectedUsers);
 
         Users actualUsers = this.client.getForObject(rootUrl() + "/users/living-or-currently-near/Coventry?within-miles=10", Users.class);

@@ -14,4 +14,9 @@ public class RestUserRepository implements UserRepository {
     public Users findUsersLivingIn(String city) {
         return client.getForObject("/city/{city}/users", Users.class, city);
     }
+
+    @Override
+    public Users findUsersCurrentlyNear(String city, double latitude, double longitude, int withinMiles) {
+        return new Users();
+    }
 }

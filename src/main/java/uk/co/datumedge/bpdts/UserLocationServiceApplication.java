@@ -1,5 +1,7 @@
 package uk.co.datumedge.bpdts;
 
+import com.grum.geocalc.Coordinate;
+import com.grum.geocalc.Point;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,6 +13,8 @@ import uk.co.datumedge.bpdts.repository.RestUserRepository;
 import uk.co.datumedge.bpdts.repository.UserRepository;
 import uk.co.datumedge.bpdts.service.GeocalcUserLocationService;
 import uk.co.datumedge.bpdts.service.UserLocationService;
+
+import java.util.Map;
 
 @SpringBootApplication
 @Configuration
@@ -29,8 +33,14 @@ public class UserLocationServiceApplication {
     }
 
     @Bean
-    public UserLocationService userLocationService(UserRepository userRepository) {
-        return new GeocalcUserLocationService(userRepository);
+    public UserLocationService userLocationService(UserRepository userRepository, Map<String, Point> cityLocations) {
+        return new GeocalcUserLocationService(userRepository, cityLocations);
+    }
+
+    @Bean
+    public Map<String, Point> cityLocations() {
+        Point point = Point.at(Coordinate.fromDegrees(51.507222), Coordinate.fromDegrees(-0.1275));
+        return Map.of("London", point);
     }
 
     @Bean
