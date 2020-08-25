@@ -7,6 +7,7 @@ import uk.co.datumedge.bpdts.model.User;
 import uk.co.datumedge.bpdts.model.Users;
 import uk.co.datumedge.bpdts.repository.UserRepository;
 
+import javax.validation.ValidationException;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
@@ -26,11 +27,12 @@ public class GeocalcUserLocationService implements UserLocationService {
     @Override
     public Users findUsersLivingOrNear(String city, int withinMiles) {
         double withinMetres = toMetres(withinMiles);
-        Users livingInCity = repository.findAllLivingIn(city);
 
         List<User> currentlyNearCity = repository.findAll().getUsers().stream()
                 .filter(distanceFrom(locationOf(city), withinMetres))
                 .collect(Collectors.toList());
+
+        Users livingInCity = repository.findAllLivingIn(city);
 
         return Users.mergeById(livingInCity, new Users(currentlyNearCity));
     }
@@ -48,6 +50,10 @@ public class GeocalcUserLocationService implements UserLocationService {
     }
 
     private Point locationOf(String city) {
-        return cityLocations.get(city);
+        if (cityLocations.containsKey(city)) {
+            return cityLocations.get(city);
+        } else {
+            throw new ValidationException("Location of city '" + city + "' is unknown");
+        }
     }
 }
