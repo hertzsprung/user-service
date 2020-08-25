@@ -7,6 +7,8 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
+import uk.co.datumedge.bpdts.service.GeocalcUserLocationService;
+import uk.co.datumedge.bpdts.service.UserLocationService;
 
 @SpringBootApplication
 @Configuration
@@ -22,6 +24,11 @@ public class UserLocationServiceApplication {
      */
     public static void main(String[] args) {
         SpringApplication.run(UserLocationServiceApplication.class, args);
+    }
+
+    @Bean
+    public UserLocationService userLocationService() {
+        return new GeocalcUserLocationService();
     }
 
     @Bean
