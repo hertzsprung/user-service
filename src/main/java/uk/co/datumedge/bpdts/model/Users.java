@@ -3,26 +3,38 @@ package uk.co.datumedge.bpdts.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.toCollection;
 
 public class Users {
     private Collection<User> users;
 
     public static Users mergeById(Users a, Users b) {
-        Users users = new Users();
-        users.users.addAll(a.users);
-        users.users.addAll(b.users);
-        return users;
+        return new Users(Stream.concat(a.users.stream(), b.users.stream())
+                .filter(distinctByKey(User::getId))
+                .collect(Collectors.toList()));
+    }
+
+    // https://stackoverflow.com/a/27872852/150884
+    public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+        Set<Object> seen = ConcurrentHashMap.newKeySet();
+        return t -> seen.add(keyExtractor.apply(t));
     }
 
     @JsonCreator
     public Users(User... users) {
-        this.users = new ArrayList<>(List.of(users));
+        this.users = List.of(users);
+    }
+
+    public Users(Collection<User> users) {
+        this.users = users;
     }
 
     @JsonValue

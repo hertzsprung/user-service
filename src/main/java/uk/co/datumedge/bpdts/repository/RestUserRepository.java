@@ -11,12 +11,12 @@ public class RestUserRepository implements UserRepository {
     }
 
     @Override
-    public Users findUsersLivingIn(String city) {
+    public Users findAllLivingIn(String city) {
         return client.getForObject("/city/{city}/users", Users.class, city);
     }
 
     @Override
-    public Users findUsersCurrentlyNear(String city, double latitude, double longitude, int withinMiles) {
-        return new Users();
+    public Users findAll() {
+        return client.getForObject("/users", Users.class);
     }
 }

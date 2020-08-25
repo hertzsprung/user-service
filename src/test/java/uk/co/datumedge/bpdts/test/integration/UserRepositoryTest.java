@@ -15,13 +15,14 @@ public class UserRepositoryTest {
     private UserRepository userRepository;
 
     @Test
-    public void findUsersLivingInLondon() {
-        Users actualUsers = userRepository.findUsersLivingIn("London");
+    public void findAllLivingInLondon() {
+        Users actualUsers = userRepository.findAllLivingIn("London");
         assertThat(actualUsers.getUsers()).contains(MECHELLE_BOAM);
     }
 
     @Test
-    public void findUsersCurrentlyNearLondon() {
-        userRepository.findUsersCurrentlyNear("London", 51.507222, -0.1275, 60);
+    public void findAll() {
+        Users actualUsers = userRepository.findAll();
+        assertThat(actualUsers.getUsers().size()).isEqualTo(1000);
     }
 }
