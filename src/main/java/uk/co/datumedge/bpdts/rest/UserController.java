@@ -15,6 +15,6 @@ public class UserController {
 
     @GetMapping("/users/living-or-currently-near/{city}")
     public Users findLivingOrCurrentlyNear(@PathVariable String city, @RequestParam("within-miles") int withinMiles) {
-        return userLocationService.getUsersLivingOrNear(city, withinMiles);
+        return userLocationService.findUsersLivingOrNear(city, withinMiles);
     }
 }

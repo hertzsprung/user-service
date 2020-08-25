@@ -1,4 +1,4 @@
-package uk.co.datumedge.bpdts.system.steps;
+package uk.co.datumedge.bpdts.test.system.steps;
 
 import org.jbehave.core.annotations.AfterScenario;
 import org.jbehave.core.annotations.Given;

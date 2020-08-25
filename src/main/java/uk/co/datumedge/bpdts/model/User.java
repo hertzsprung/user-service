@@ -1,5 +1,7 @@
 package uk.co.datumedge.bpdts.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Objects;
 
 public class User {
@@ -11,6 +13,7 @@ public class User {
         this.lastName = lastName;
     }
 
+    @JsonProperty("first_name")
     public String getFirstName() {
         return firstName;
     }
@@ -19,6 +22,7 @@ public class User {
         this.firstName = firstName;
     }
 
+    @JsonProperty("last_name")
     public String getLastName() {
         return lastName;
     }

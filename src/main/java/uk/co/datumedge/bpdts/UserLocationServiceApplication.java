@@ -7,6 +7,8 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
+import uk.co.datumedge.bpdts.repository.RestUserRepository;
+import uk.co.datumedge.bpdts.repository.UserRepository;
 import uk.co.datumedge.bpdts.service.GeocalcUserLocationService;
 import uk.co.datumedge.bpdts.service.UserLocationService;
 
@@ -19,7 +21,7 @@ public class UserLocationServiceApplication {
      *             <dl>
      *              <dt><code>--userApiRootUri=&lt;uri&gt;</code></dt>
      *              <dd>Specifies the root URI for the underlying user API
-     *              (default is <code>http://bpdts-test-app-v4.herokuapp.com/</code>).</dd>
+     *              (default is <code>http://bpdts-test-app-v4.herokuapp.com</code>).</dd>
      *             </dl>
      */
     public static void main(String[] args) {
@@ -27,8 +29,13 @@ public class UserLocationServiceApplication {
     }
 
     @Bean
-    public UserLocationService userLocationService() {
-        return new GeocalcUserLocationService();
+    public UserLocationService userLocationService(UserRepository userRepository) {
+        return new GeocalcUserLocationService(userRepository);
+    }
+
+    @Bean
+    public UserRepository userRepository(RestTemplate client) {
+        return new RestUserRepository(client);
     }
 
     @Bean
@@ -37,7 +44,7 @@ public class UserLocationServiceApplication {
         if (args.containsOption("userApiRootUri") && args.getOptionValues("userApiRootUri").size() > 0) {
             rootUri = args.getOptionValues("userApiRootUri").get(0);
         } else {
-            rootUri = "http://bpdts-test-app-v4.herokuapp.com/";
+            rootUri = "http://bpdts-test-app-v4.herokuapp.com";
         }
 
         return builder.rootUri(rootUri).build();
