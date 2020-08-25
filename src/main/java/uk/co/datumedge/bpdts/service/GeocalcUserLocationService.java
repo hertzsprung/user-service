@@ -12,6 +12,8 @@ import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import static com.grum.geocalc.EarthCalc.harvesineDistance;
+
 public class GeocalcUserLocationService implements UserLocationService {
     private final UserRepository repository;
     private Map<String, Point> cityLocations;
@@ -38,7 +40,7 @@ public class GeocalcUserLocationService implements UserLocationService {
     }
 
     private Predicate<? super User> distanceFrom(Point target, double metresApart) {
-       return (User user) -> EarthCalc.harvesineDistance(currentLocationOf(user), target) < metresApart;
+       return (User user) -> harvesineDistance(currentLocationOf(user), target) < metresApart;
     }
 
     private Point currentLocationOf(User user) {
