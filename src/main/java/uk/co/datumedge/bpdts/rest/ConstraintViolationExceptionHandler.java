@@ -11,7 +11,11 @@ import javax.validation.ConstraintViolationException;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
-// https://github.com/eugenp/tutorials/blob/master/spring-mvc-xml/src/main/java/com/baeldung/spring/controller/ConstraintViolationExceptionHandler.java
+/**
+ * Return <code>BAD_REQUEST</code> status for <code>ConstraintViolationException</code>s.
+ *
+ * @see <a href="https://github.com/eugenp/tutorials/blob/master/spring-mvc-xml/src/main/java/com/baeldung/spring/controller/ConstraintViolationExceptionHandler.java">github.com/eugenp/tutorials</a>
+ */
 @ControllerAdvice
 public class ConstraintViolationExceptionHandler extends ResponseEntityExceptionHandler {
 

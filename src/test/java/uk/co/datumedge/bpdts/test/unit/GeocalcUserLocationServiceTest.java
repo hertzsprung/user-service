@@ -17,10 +17,10 @@ import static org.mockito.Mockito.when;
 import static uk.co.datumedge.bpdts.test.TestUsers.*;
 
 public class GeocalcUserLocationServiceTest {
-    private final UserRepository repository = mock(UserRepository.class);
-    private final UserLocationService userLocationService = new GeocalcUserLocationService(repository, cityLocations());
     private static final Users ALL = new Users(ANCELL_GARNSWORTHY, HUGIBERT_DORE, TERRY_STOWGILL);
 
+    private final UserRepository repository = mock(UserRepository.class);
+    private final UserLocationService userLocationService = new GeocalcUserLocationService(repository, cityLocations());
 
     @Test
     public void findUsersLivingInOrCurrentlyNearLondon() {
