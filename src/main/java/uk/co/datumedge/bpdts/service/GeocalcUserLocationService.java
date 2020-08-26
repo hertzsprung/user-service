@@ -1,7 +1,6 @@
 package uk.co.datumedge.bpdts.service;
 
 import com.grum.geocalc.Coordinate;
-import com.grum.geocalc.EarthCalc;
 import com.grum.geocalc.Point;
 import uk.co.datumedge.bpdts.model.User;
 import uk.co.datumedge.bpdts.model.Users;
@@ -15,6 +14,9 @@ import java.util.stream.Collectors;
 
 import static com.grum.geocalc.EarthCalc.harvesineDistance;
 
+/**
+ * Implementation backed by the <a href="https://github.com/grumlimited/geocalc/">Java GeoCalc library</a>.
+ */
 public class GeocalcUserLocationService implements UserLocationService {
     private final UserRepository repository;
     private Map<String, Point> cityLocations;
